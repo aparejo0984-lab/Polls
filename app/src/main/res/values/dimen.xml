@@ -10,16 +10,24 @@
     <dimen name="icon_image_view_size">25dp</dimen>
     <dimen name="start_quiz_image_view_size">80dp</dimen>
 
-    <dimen name="_10sdp">10.00dp</dimen>
-    <dimen name="_20sdp">20.00dp</dimen>
-    <dimen name="_35sdp">35.00dp</dimen>
+    <dimen name="_2sdp">2.00dp</dimen>
+    <dimen name="_4sdp">4.00dp</dimen>
+    <dimen name="_5sdp">5.00dp</dimen>
+    <dimen name="_6sdp">6.00dp</dimen>
     <dimen name="_8sdp">8.00dp</dimen>
-    <dimen name="_15sdp">15.00dp</dimen>
+    <dimen name="_10sdp">10.00dp</dimen>
+    <dimen name="_10ssp">10.00sp</dimen>
     <dimen name="_12sdp">12.00dp</dimen>
     <dimen name="_13ssp">13.00sp</dimen>
+    <dimen name="_16ssp">16.00sp</dimen>
+    <dimen name="_15sdp">15.00dp</dimen>
+    <dimen name="_20sdp">20.00dp</dimen>
     <dimen name="_20ssp">20.00sp</dimen>
-    <dimen name="_40sdp">40.00dp</dimen>
+    <dimen name="_25sdp">25.00dp</dimen>
     <dimen name="_30sdp">30.00dp</dimen>
-    <dimen name="_5sdp">5.00dp</dimen>
-    <dimen name="_2sdp">2.00dp</dimen>
+    <dimen name="_30ssp">30.00sp</dimen>
+    <dimen name="_35sdp">35.00dp</dimen>
+    <dimen name="_40sdp">40.00dp</dimen>
+    <dimen name="_50sdp">50.00dp</dimen>
+    <dimen name="_100sdp">100.00dp</dimen>
 </resources>

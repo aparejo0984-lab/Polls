@@ -32,7 +32,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_2sdp"
         android:layout_marginEnd="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
         android:clipToPadding="false"
         android:paddingStart="0dp"
         android:paddingEnd="@dimen/_12sdp"
@@ -43,17 +43,18 @@
         android:id="@+id/layoutQuickActions"/>
 
     <ImageView
-        android:id="@+id/imageAddNoteMain"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginEnd="36dp"
+        android:id="@+id/imageAddPollMain"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="@dimen/_30sdp"
         android:background="@drawable/background_add_icon"
         android:contentDescription="@string/app_name"
         android:padding="@dimen/_5sdp"
         android:src="@drawable/ic_add_icon"
         app:layout_constraintBottom_toTopOf="@id/layoutQuickActions"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/layoutQuickActions"
+        app:layout_constraintTop_toBottomOf="@id/pollsRecyclerView"
         app:layout_constraintVertical_bias="1.0"
         app:tint="@color/colorSearchIcon" />
 
