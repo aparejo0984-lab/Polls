@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">Polls</string>
+
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="login_to_continue">Login to continue</string>
+
+    <string name="don_t_have_an_account">Don’t have an account?</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="loginUp">LOGIN</string>
+    <string name="sign_up">SIGN UP</string>
+
+    <string name="create_account">Create Account</string>
+    <string name="choose_avatar">Choose your avatar</string>
+    <string name="choose_topic">Choose your topic</string>
+    <string name="congratulations">Congratulations!!!</string>
+    <string name="you_are_set">You are all set</string>
+    <string name="please_login">Please log in to your account</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="create">Create</string>
+    <string name="next">Next</string>
+    <string name="finish">Finish</string>
+
+    <string name="name_cannot_empty">Name cannot be empty</string>
+    <string name="username_cannot_empty">Username or email cannot be empty</string>
+    <string name="password_cannot_empty">Password cannot be empty</string>
+    <string name="email_cannot_empty">Email cannot be empty</string>
+    <string name="email_not_valid">Email must be valid</string>
+
+    <string name="activity_main_input_search_hint">Search</string>
+    <string name="activity_main_text_my_polls_text">My Polls</string>
 </resources>
