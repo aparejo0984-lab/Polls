@@ -32,7 +32,7 @@
                 app:tint="@color/lavender" />
 
             <ImageView
-                android:id="@+id/imageSave"
+                android:id="@+id/imageDelete"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_marginEnd="@dimen/_12sdp"

@@ -31,6 +31,10 @@
     <string name="option3">Option 3</string>
     <string name="option4">Option 4</string>
 
+    <string name="text_delete_poll_title_text">Delete Poll</string>
+    <string name="text_delete_poll_message_text">Are you sure want to delete this poll?</string>
+    <string name="text_delete_poll_text">DELETE POLL</string>
+    <string name="text_cancel_text">CANCEL</string>
     <string name="name_cannot_empty">Name cannot be empty</string>
     <string name="username_cannot_empty">Username or email cannot be empty</string>
     <string name="password_cannot_empty">Password cannot be empty</string>

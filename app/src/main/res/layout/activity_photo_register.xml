@@ -39,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="@+id/tvChooseAvatar"
         app:layout_constraintTop_toTopOf="@+id/tvChooseAvatar"
-        app:srcCompat="@drawable/avatar" />
+        app:srcCompat="@drawable/avatar_icon" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -50,7 +50,8 @@
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@drawable/camera" />
+        app:srcCompat="@drawable/ic_camera"
+        app:tint="@color/lavender" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"

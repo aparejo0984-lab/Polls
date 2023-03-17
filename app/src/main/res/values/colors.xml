@@ -19,5 +19,7 @@
     <color name="colorSearchIcon">#DBDBDB</color>
     <color name="colorTextHint">#7B7B7B</color>
 
+    <color name="colorDefaultColor">#DBDBDB</color>
+
     <color name="colorSearchBackground">#EAE7E7</color>
 </resources>
