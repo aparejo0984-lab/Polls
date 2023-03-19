@@ -12,10 +12,12 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="loginUp">LOGIN</string>
     <string name="sign_up">SIGN UP</string>
+    <string name="logout">Logout</string>
     <string name="forgot_password">FORGOT PASSWORD</string>
     <string name="forgot_password_title">Forgot Password</string>
 
     <string name="create_account">Create Account</string>
+    <string name="update_account">Update Account</string>
     <string name="create_poll">Create a Poll</string>
     <string name="choose_avatar">Choose your avatar</string>
     <string name="choose_topic">Choose your topic</string>
@@ -26,6 +28,7 @@
     <string name="email">Email</string>
     <string name="create">Create</string>
     <string name="send">Send</string>
+    <string name="save">Save</string>
     <string name="next">Next</string>
     <string name="finish">Finish</string>
     <string name="activity_create_question_text_hint">Create a question</string>
