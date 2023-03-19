@@ -32,5 +32,6 @@
     <dimen name="_35sdp">35.00dp</dimen>
     <dimen name="_40sdp">40.00dp</dimen>
     <dimen name="_50sdp">50.00dp</dimen>
+    <dimen name="_60sdp">60.00dp</dimen>
     <dimen name="_100sdp">100.00dp</dimen>
 </resources>

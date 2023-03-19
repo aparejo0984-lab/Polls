@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         TextView tvSignUp = findViewById(R.id.tvSignUp);
+        TextView tvForgotPassword = findViewById(R.id.tvforgotPassword);
         Button btnLogin = findViewById(R.id.btnLogin);
 
         etUsername = findViewById(R.id.tietName);
@@ -31,6 +32,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, RegisterMainActivity.class));
+            }
+        });
+
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
             }
         });
 

@@ -44,8 +44,8 @@
 
     <ImageView
         android:id="@+id/imageAddPollMain"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="@dimen/_30sdp"
         android:background="@drawable/background_add_icon"
