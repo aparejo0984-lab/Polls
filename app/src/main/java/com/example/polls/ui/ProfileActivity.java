@@ -2,6 +2,7 @@ package com.example.polls.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import com.example.polls.R;
 
 public class ProfileActivity extends AppCompatActivity {
+
+    Context context = getApplicationContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
+                Toast.makeText(context, "Profile is successfully updated", Toast.LENGTH_SHORT).show();
             }
         });
     }

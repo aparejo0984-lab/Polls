@@ -48,7 +48,6 @@ public class CreatePollActivity extends AppCompatActivity {
             }
             view.findViewById(R.id.textDeleteCancel).setOnClickListener(v -> dialogDeletePoll.dismiss());
         }
-
         dialogDeletePoll.show();
     }
 }

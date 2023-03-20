@@ -4,6 +4,7 @@ import static com.example.polls.utils.Utils.isValidEmail;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.example.polls.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
+
+    Context context = getApplicationContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
 
                 if (!validateInputs(email)) return;
+
+                Toast.makeText(context, "Password is sent to your email", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
             }
