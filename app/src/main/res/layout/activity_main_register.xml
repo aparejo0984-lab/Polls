@@ -105,16 +105,31 @@
         app:layout_constraintStart_toStartOf="@+id/textInputLayoutPasswordRegister"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPasswordRegister" />
 
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="181dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="182dp"
+        android:layout_marginBottom="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
 
     <TextView
         android:id="@+id/tvSignUp4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
+        android:padding="2dp"
         android:text="@string/already_have_an_account"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:padding="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvLoginUp"
         app:layout_constraintHorizontal_bias="0.5"
@@ -126,14 +141,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:padding="2dp"
         android:text="@string/loginUp"
         android:textColor="@color/lavender"
         android:textSize="18sp"
-        android:padding="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvSignUp4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvSignUp4"
         app:layout_constraintTop_toTopOf="@+id/tvSignUp4" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

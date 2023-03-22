@@ -6,18 +6,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.polls.R;
+import com.example.polls.handler.APIClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    Context context = getApplicationContext();
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +56,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 if (!validateInputs(email)) return;
 
-                Toast.makeText(context, "Password is sent to your email", Toast.LENGTH_SHORT).show();
+                //displaying the progress bar while user registers on the server
+                progressBar = (ProgressBar) findViewById(R.id.progressBar);
+                progressBar.setVisibility(View.VISIBLE);
 
-                startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
+                new UserPasswordReset().execute(email);
+
             }
         });
 
@@ -64,5 +80,87 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private class UserPasswordReset extends AsyncTask<Object, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(Object... params) {
+
+            String str= APIClient.API_PASSWORD_RESET;
+            BufferedReader bufferedReader = null;
+            try
+            {
+                URL url = new URL(str);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                conn.setRequestProperty("Accept","application/json");
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+
+                JSONObject jsonParam = new JSONObject();
+                jsonParam.put("email", (String) params[0]);
+
+                Log.i("JSON", jsonParam.toString());
+
+                DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                os.writeBytes(jsonParam.toString());
+
+                os.flush();
+                os.close();
+
+                Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+                Log.i("MSG" , conn.getResponseMessage());
+
+                if (100 <= conn.getResponseCode() && conn.getResponseCode() < 400) {
+                    bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                } else {
+                    bufferedReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                }
+
+                StringBuffer stringBuffer = new StringBuffer();
+                String line;
+                while ((line = bufferedReader.readLine()) != null)
+                {
+                    stringBuffer.append(line);
+                }
+
+                return new JSONObject(stringBuffer.toString());
+
+            }
+            catch(Exception ex)
+            {
+                Log.e("App", "yourDataTask", ex);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject response)
+        {
+            if(response != null)
+            {
+                try {
+                    Log.e("App", "Success: " + response.getString("status") );
+                    Log.e("App", "Message: " + response.getString("message") );
+
+                    progressBar.setVisibility(View.GONE);
+
+                    Boolean status=Boolean.valueOf(response.getString("status") );
+
+                    if (status == true) {
+                        Toast.makeText(getApplicationContext(), response.getString("message"),Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), response.getString("message"),Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException ex) {
+                    Log.e("App", "Failure", ex);
+                }
+            }
+        }
     }
 }
