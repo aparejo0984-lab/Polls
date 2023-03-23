@@ -48,4 +48,8 @@
         <item name="android:textColor">@color/lavender</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="SwitchCompatTheme" >
+        <item name="colorControlActivated">@color/lavender</item>
+    </style>
 </resources>

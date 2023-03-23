@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.polls.R;
 import com.example.polls.handler.APIClient;
+import com.example.polls.model.User;
+import com.example.polls.service.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,10 +63,6 @@ public class RegisterMainActivity extends AppCompatActivity {
 
                 if (!validateInputs(name,email,password)) return;
 
-                //displaying the progress bar while user registers on the server
-                progressBar = (ProgressBar) findViewById(R.id.progressBar);
-                progressBar.setVisibility(View.VISIBLE);
-
                 new UserRegister().execute(name, email,password);
             }
         });
@@ -96,6 +94,13 @@ public class RegisterMainActivity extends AppCompatActivity {
     }
 
     private class UserRegister extends AsyncTask<Object, Void, JSONObject> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected JSONObject doInBackground(Object... params) {
@@ -155,18 +160,36 @@ public class RegisterMainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject response)
         {
+            progressBar.setVisibility(View.GONE);
+
             if(response != null)
             {
                 try {
                     Log.e("App", "Success: " + response.getString("status") );
                     Log.e("App", "Message: " + response.getString("message") );
-
-                    progressBar.setVisibility(View.GONE);
+                    Log.e("App", "data: " + response.getString("data") );
 
                     Boolean status=Boolean.valueOf(response.getString("status") );
 
                     if (status == true) {
                         Toast.makeText(getApplicationContext(), response.getString("message"),Toast.LENGTH_SHORT).show();
+
+                        JSONObject userJson = new JSONObject(response.getString("data"));
+
+                        Log.e("App", "ID: " + userJson.getInt("id") );
+                        Log.e("App", "NAME: " + userJson.getString("name") );
+                        Log.e("App", "Email: " + userJson.getString("email") );
+
+                        //creating a new user object
+                        User user = new User(
+                                userJson.getInt("id"),
+                                userJson.getString("name"),
+                                userJson.getString("email")
+                        );
+
+                        //storing the user in shared preferences
+                        SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+
                         startActivity(new Intent(RegisterMainActivity.this, RegisterPhotoActivity.class));
                     }
                     else {

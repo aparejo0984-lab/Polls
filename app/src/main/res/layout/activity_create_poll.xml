@@ -83,100 +83,39 @@
                 app:layout_constraintTop_toBottomOf="@id/tvCreatePoll"
                 app:layout_constraintVertical_bias="0.015" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textOption1"
-                android:layout_width="0dp"
+            <Spinner
+                android:id="@+id/category_spinner"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/tvCreatePoll"
+                app:layout_constraintStart_toStartOf="@+id/inputNoteText"
+                app:layout_constraintTop_toBottomOf="@+id/inputNoteText"/>
+
+            <Switch
+                android:theme="@style/SwitchCompatTheme"
+                android:checked = "true"
+                android:id="@+id/switchEnable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enable"
+                android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputNoteText">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tietOption1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/option1"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textOption2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textOption1">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tietOption2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/option2"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textOption3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textOption2">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tietOption3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/option3"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textOption4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textOption3">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tietOption4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/option4"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@+id/category_spinner"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegister"
+                android:id="@+id/btnNext"
                 style="@style/btnStyle"
                 android:layout_width="0dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="40dp"
                 android:text="@string/create"
-                app:layout_constraintEnd_toEndOf="@+id/textOption4"
+                app:layout_constraintEnd_toEndOf="@+id/inputNoteText"
                 app:layout_constraintHorizontal_bias="0.464"
-                app:layout_constraintStart_toStartOf="@+id/textOption4"
-                app:layout_constraintTop_toBottomOf="@+id/textOption4" />
+                app:layout_constraintStart_toStartOf="@+id/inputNoteText"
+                app:layout_constraintTop_toBottomOf="@+id/switchEnable" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

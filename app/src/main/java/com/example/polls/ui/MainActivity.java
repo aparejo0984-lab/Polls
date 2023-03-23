@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.polls.R;
+import com.example.polls.service.SharedPrefManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,8 +46,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 return true;
             case R.id.action_logout:
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 Toast.makeText(this, "Successfully logout", Toast.LENGTH_SHORT).show();
+
+                finish();
+                SharedPrefManager.getInstance(getApplicationContext()).logout();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

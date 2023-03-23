@@ -19,6 +19,7 @@
     <string name="create_account">Create Account</string>
     <string name="update_account">Update Account</string>
     <string name="create_poll">Create a Poll</string>
+    <string name="create_poll_options">Poll Options</string>
     <string name="choose_avatar">Choose your avatar</string>
     <string name="choose_topic">Choose your topic</string>
     <string name="congratulations">Congratulations!!!</string>
@@ -26,6 +27,7 @@
     <string name="please_login">Please log in to your account</string>
     <string name="register">Register</string>
     <string name="email">Email</string>
+    <string name="enable">Enable</string>
     <string name="create">Create</string>
     <string name="send">Send</string>
     <string name="save">Save</string>
@@ -49,4 +51,12 @@
 
     <string name="activity_main_input_search_hint">Search</string>
     <string name="activity_main_text_my_polls_text">My Polls</string>
+
+    <string-array name="category_array">
+        <item>Select a Category</item>
+        <item>Fashion</item>
+        <item>Finance</item>
+        <item>Science</item>
+        <item>Travel</item>
+    </string-array>
 </resources>
