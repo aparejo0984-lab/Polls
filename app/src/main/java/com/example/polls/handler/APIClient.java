@@ -9,4 +9,5 @@ public class APIClient {
     public static final String API_LOGIN = API_BASE + "login";
     public static final String API_PASSWORD_RESET = API_BASE + "password/reset";
     public static final String API_ALL_USER = API_BASE + "user";
+    public static final String API_POLL = API_BASE + "poll";
 }

@@ -4,7 +4,6 @@ import static com.example.polls.utils.Utils.isValidEmail;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -61,7 +60,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 new UserPasswordReset().execute(email);
-
             }
         });
 
