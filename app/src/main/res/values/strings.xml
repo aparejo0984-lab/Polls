@@ -35,10 +35,10 @@
     <string name="finish">Finish</string>
     <string name="select_a_category">Select at lease one category</string>
     <string name="activity_create_question_text_hint">Create a question</string>
-    <string name="option1">Option 1</string>
-    <string name="option2">Option 2</string>
-    <string name="option3">Option 3</string>
-    <string name="option4">Option 4</string>
+    <string name="option1">Option 1 (Required)</string>
+    <string name="option2">Option 2 (Required)</string>
+    <string name="option3">Option 3 (Optional)</string>
+    <string name="option4">Option 4 (Optional)</string>
 
     <string name="text_delete_poll_title_text">Delete Poll</string>
     <string name="text_delete_poll_message_text">Are you sure want to delete this poll?</string>
@@ -49,6 +49,8 @@
     <string name="username_cannot_empty">Username or email cannot be empty</string>
     <string name="password_cannot_empty">Password cannot be empty</string>
     <string name="email_cannot_empty">Email cannot be empty</string>
+    <string name="option1_cannot_empty">Option1 cannot be empty</string>
+    <string name="option2_cannot_empty">Option1 cannot be empty</string>
     <string name="email_not_valid">Email must be valid</string>
 
     <string name="activity_main_input_search_hint">Search</string>

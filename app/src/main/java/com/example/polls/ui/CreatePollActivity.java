@@ -150,6 +150,7 @@ public class CreatePollActivity extends AppCompatActivity {
             super.onPreExecute();
             progressBar = (ProgressBar) findViewById(R.id.progressBar);
             progressBar.setVisibility(View.VISIBLE);
+
         }
 
         @Override
@@ -226,11 +227,13 @@ public class CreatePollActivity extends AppCompatActivity {
 
                         JSONObject pollJson = new JSONObject(response.getString("data"));
 
-                        Log.e("App", "ID: " + pollJson.getInt("id") );
+                        Log.e("App", "POLL ID: " + pollJson.getInt("id") );
                         Log.e("App", "CATEGORY ID: " + pollJson.getInt("category_id")  );
                         Log.e("App", "Question: " + pollJson.getString("question") );
 
-                        startActivity(new Intent(CreatePollActivity.this, CreatePollOptionsActivity.class));
+                        Intent intent = new Intent(CreatePollActivity.this, CreatePollOptionsActivity.class);
+                        intent.putExtra("pollID", pollJson.getInt("id"));
+                        startActivity(intent);
                     }
                     else {
                         Toast.makeText(getApplicationContext(), response.getString("message"),Toast.LENGTH_LONG).show();

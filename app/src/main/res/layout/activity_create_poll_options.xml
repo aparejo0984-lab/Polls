@@ -154,6 +154,22 @@
                 app:layout_constraintStart_toStartOf="@+id/textOption4"
                 app:layout_constraintTop_toBottomOf="@+id/textOption4" />
 
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="192dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="171dp"
+                android:layout_marginBottom="62dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnFinish" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
