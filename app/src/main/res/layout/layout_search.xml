@@ -23,7 +23,7 @@
         <EditText
             android:id="@+id/inputSearch"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:background="@null"
             android:fontFamily="@font/ubuntu_regular"
@@ -32,8 +32,6 @@
             android:importantForAutofill="no"
             android:inputType="text"
             android:textColor="@color/black"
-            android:textColorHint="@color/colorTextHint"
+            android:textColorHint="@color/lavender"
             android:textSize="@dimen/_13ssp" />
-
-
 </LinearLayout>

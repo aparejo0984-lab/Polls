@@ -3,6 +3,7 @@ package com.example.polls.service;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,9 @@ import java.util.TimerTask;
 public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder>{
 
     private final Context context;
-    private final ArrayList<Poll> pollArrayList;
+    private ArrayList<Poll> pollArrayList;
     private Timer timer;
-    private List<Poll> polls;
-    private List<Poll> pollsSource;
+    private ArrayList<Poll> pollsSource;
 
     // Constructor
     public PollRVAdapter(Context context, ArrayList<Poll> pollArrayList) {
@@ -75,16 +75,18 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
             @Override
             public void run() {
                 if(searchKeyword.trim().isEmpty()) {
-                    polls = pollsSource;
+                    pollArrayList = pollsSource;
                 } else {
                     ArrayList<Poll> temp = new ArrayList<>();
-                    for(Poll note : pollsSource) {
-                        if(note.getQuestion().toLowerCase().contains(searchKeyword.toLowerCase()) ||
-                                note.getUsername().toLowerCase().contains(searchKeyword.toLowerCase())) {
-                            temp.add(note);
+                    for(Poll pollItem : pollsSource) {
+                        Log.i("Search string function", searchKeyword.toLowerCase());
+                        if(pollItem.getQuestion().toLowerCase().contains(searchKeyword.toLowerCase()) ||
+                                pollItem.getUsername().toLowerCase().contains(searchKeyword.toLowerCase())) {
+                            Log.i("Added poll item", pollItem.getQuestion());
+                            temp.add(pollItem);
                         }
                     }
-                    polls = temp;
+                    pollArrayList = temp;
                 }
                 new Handler(Looper.getMainLooper()).post(() -> notifyDataSetChanged());
             }

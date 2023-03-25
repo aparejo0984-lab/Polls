@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                Log.i("Search string", s.toString());
+                Log.i("Poll Array Size", String.valueOf(pollArrayList.size()));
                 if(pollArrayList.size() != 0) {
                     pollRVAdapter.searchPoll(s.toString());
                 }
