@@ -1,21 +1,45 @@
 package com.example.polls.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.polls.R;
+import com.example.polls.handler.APIClient;
+import com.example.polls.model.Poll;
+import com.example.polls.service.PollRVAdapter;
 import com.example.polls.service.SharedPrefManager;
+import com.example.polls.utils.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView pollsRecyclerView;
+    private PollRVAdapter pollRVAdapter;
+    ArrayList<Poll> pollArrayList = new ArrayList<Poll>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +47,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ImageView imageAddPollMain= findViewById(R.id.imageAddPollMain);
-
         imageAddPollMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CreatePollActivity.class));
             }
         });
+
+        pollsRecyclerView = findViewById(R.id.pollsRecyclerView);
+        new ShowPollList().execute();
+
+        EditText inputSearch = findViewById(R.id.inputSearch);
+        inputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                pollRVAdapter.cancelTimer();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(pollArrayList.size() != 0) {
+                    pollRVAdapter.searchPoll(s.toString());
+                }
+            }
+        });
+
     }
 
     @Override
@@ -54,6 +101,100 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class ShowPollList extends AsyncTask<Object, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(Object... params) {
+
+            String str= APIClient.API_POLL;
+            BufferedReader bufferedReader = null;
+            try
+            {
+                URL url = new URL(str);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+                Log.i("URL", str);
+                Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+
+                bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuffer stringBuffer = new StringBuffer();
+                String line;
+                while ((line = bufferedReader.readLine()) != null)
+                {
+                    stringBuffer.append(line);
+                }
+
+                return new JSONObject(stringBuffer.toString());
+            }
+            catch(Exception ex)
+            {
+                Log.e("App", "yourDataTask", ex);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject response)
+        {
+            if(response != null)
+            {
+                try {
+                    Log.e("App", "Success: " + response.getString("status") );
+                    Log.e("App", "Data: " + response.getString("data") );
+
+                    Boolean status=Boolean.valueOf(response.getString("status") );
+
+                    if (status == true) {
+                        JSONArray jsonarray = new JSONArray(response.getString("data"));
+
+                        if (jsonarray.length() == 0) return;
+
+                        for(int item=0; item<jsonarray.length(); item++){
+                            JSONObject obj = jsonarray.getJSONObject(item);
+
+                            Integer id = Integer.valueOf(obj.getString("id"));
+                            Integer userId = Integer.valueOf(obj.getString("user_id"));
+                            Integer categoryId = Integer.valueOf(obj.getString("category_id"));
+                            String question = obj.getString("question");
+                            String createdAt = obj.getString("created_at");
+
+                            JSONObject userJson = new JSONObject(obj.getString("user"));
+
+                            Log.e("App", "ID: " + id );
+                            Log.e("App", "User ID: " + userId);
+                            Log.e("App", "Category ID: " + categoryId);
+                            Log.e("App", "Question: " + question );
+                            Log.e("App", "Username: " + userJson.getString("name") );
+                            Log.e("App", "CreatedAt: " + createdAt.substring(0,10) );
+
+                            String timeAgo = Utils.calculateHumanFriendlyTimeAgo(createdAt);
+                            Log.e("App", "Time Ago: " + timeAgo );
+
+                            pollArrayList.add(
+                                    new Poll(id, userId, categoryId, question, userJson.getString("name"), timeAgo)
+                            );
+
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+                            pollRVAdapter = new PollRVAdapter(getApplicationContext(), pollArrayList);
+
+                            pollsRecyclerView.setLayoutManager(linearLayoutManager);
+                            pollsRecyclerView.setAdapter(pollRVAdapter);
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), response.getString("message"),Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException ex) {
+                    Log.e("App", "Failure", ex);
+                }
+            }
         }
     }
 }

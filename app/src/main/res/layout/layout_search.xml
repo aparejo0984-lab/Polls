@@ -6,8 +6,8 @@
     android:layout_marginStart="@dimen/_8sdp"
     android:layout_marginTop="@dimen/_15sdp"
     android:layout_marginEnd="@dimen/_8sdp"
-    android:background="@drawable/background_search"
     android:gravity="center_vertical"
+    android:background="@drawable/background_search"
     android:orientation="horizontal"
     android:paddingStart="@dimen/_10sdp"
     android:paddingEnd="@dimen/_10sdp"
@@ -20,19 +20,20 @@
         android:src="@drawable/ic_search_icon"
         app:tint="@color/lavender" />
 
-    <EditText
-        android:id="@+id/inputSearch"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:background="@null"
-        android:fontFamily="@font/ubuntu_medium"
-        android:hint="@string/activity_main_input_search_hint"
-        android:imeOptions="actionDone"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:textColor="@color/colorWhiteTextColor"
-        android:textColorHint="@color/lavender"
-        android:textSize="@dimen/_13ssp" />
+        <EditText
+            android:id="@+id/inputSearch"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:background="@null"
+            android:fontFamily="@font/ubuntu_regular"
+            android:hint="@string/activity_main_input_search_hint"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="@dimen/_13ssp" />
+
 
 </LinearLayout>

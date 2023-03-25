@@ -3,13 +3,15 @@ package com.example.polls.model;
 public class Poll {
 
     private int id,userId,categoryId;
-    private String question;
+    private String question, username, timeAgo;
 
-    public Poll(int id, int userId, int categoryId, String question) {
+    public Poll(int id, int userId, int categoryId, String question, String username, String timeAgo) {
         this.id = id;
         this.userId = userId;
         this.categoryId = categoryId;
         this.question = question;
+        this.username = username;
+        this.timeAgo = timeAgo;
     }
 
     public int getId() {
@@ -42,5 +44,21 @@ public class Poll {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getTimeAgo() {
+        return timeAgo;
+    }
+
+    public void setTimeAgo(String timeAgo) {
+        this.timeAgo = timeAgo;
     }
 }
