@@ -2,21 +2,20 @@ package com.example.polls.model;
 
 public class Poll {
 
-    private int id,userId,categoryId;
+    private int id,userId,categoryId, enableId;
     private String question, username, timeAgo;
 
-    public Poll(int id, int userId, int categoryId, String question, String username, String timeAgo) {
+    public Poll(int id, int userId, int categoryId, int enableId, String question, String username, String timeAgo) {
         this.id = id;
         this.userId = userId;
         this.categoryId = categoryId;
+        this.enableId = enableId;
         this.question = question;
         this.username = username;
         this.timeAgo = timeAgo;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
     public void setId(int id) {
         this.id = id;
@@ -38,6 +37,10 @@ public class Poll {
         this.categoryId = categoryId;
     }
 
+    public int getEnableId() { return enableId; }
+
+    public void setEnableId(int enableId) { this.enableId = enableId; }
+
     public String getQuestion() {
         return question;
     }
@@ -50,8 +53,7 @@ public class Poll {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String username) { this.username = username;
     }
 
     public String getTimeAgo() {

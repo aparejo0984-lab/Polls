@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.polls.R;
@@ -40,11 +41,19 @@ import java.net.URL;
 public class CreatePollActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
-
     private AlertDialog dialogDeletePoll;
+    private EditText questionText;
+    private Switch switchEnable;
+    private Spinner categorySpinner;
+    private Button btnNext;
+    private TextView pollTitleLabel;
+    private ArrayAdapter<CharSequence> categoryAdapter;
+
     private int categoryId = 0;
+    private int pollID = 0;
     private int enableId = 1;
     private String questionTxt = "";
+    private Boolean isViewOrUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,13 @@ public class CreatePollActivity extends AppCompatActivity {
 
         //getting the current user
         User user = SharedPrefManager.getInstance(this).getUser();
+
+        isViewOrUpdate = getIntent().getBooleanExtra("isViewOrUpdate", false);
+        btnNext = findViewById(R.id.btnNext);
+        questionText = findViewById(R.id.inputNoteText);
+        switchEnable = (Switch) findViewById(R.id.switchEnable);
+        categorySpinner = (Spinner) findViewById(R.id.category_spinner);
+        pollTitleLabel = findViewById(R.id.tvCreatePoll);
 
         ImageView imageBack = findViewById(R.id.imageBack);
         imageBack.setOnClickListener(v -> onBackPressed());
@@ -65,9 +81,6 @@ public class CreatePollActivity extends AppCompatActivity {
             }
         });
 
-        EditText questionText = findViewById(R.id.inputNoteText);
-
-        Switch switchEnable = (Switch) findViewById(R.id.switchEnable);
         switchEnable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -79,8 +92,7 @@ public class CreatePollActivity extends AppCompatActivity {
             }
         });
 
-        Spinner categorySpinner = (Spinner) findViewById(R.id.category_spinner);
-        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this, R.array.category_array, android.R.layout.simple_spinner_item);
+        categoryAdapter = ArrayAdapter.createFromResource(this, R.array.category_array, android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categoryAdapter);
 
@@ -97,16 +109,18 @@ public class CreatePollActivity extends AppCompatActivity {
             }
         });
 
-        Button btnNext = findViewById(R.id.btnNext);
+        if (isViewOrUpdate) {
+            setViewUpdatePoll();
+        }
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 questionTxt = questionText.getText().toString();
 
                 if (!validaInputs(questionTxt,categoryId)) return;
 
-                new CreatePoll().execute(user.getId(),categoryId,enableId, questionTxt);
+                new CreatePoll().execute(pollID, user.getId(),categoryId,enableId, questionTxt);
             }
         });
     }
@@ -121,8 +135,18 @@ public class CreatePollActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.question_cannot_empty), Toast.LENGTH_SHORT).show();
             return false;
         }
-
         return true;
+    }
+
+    private void setViewUpdatePoll() {
+        pollID = getIntent().getIntExtra("pollID", 0);
+
+        Log.e("App", "Poll ID: " + pollID );
+
+        pollTitleLabel.setText(R.string.update_poll);
+        questionText.setText(getIntent().getStringExtra("question"));
+        categorySpinner.setSelection(getIntent().getIntExtra("categoryID", 0));
+        btnNext.setText(getString(R.string.update));
     }
 
     private void showDeleteNoteDialog() {
@@ -157,23 +181,33 @@ public class CreatePollActivity extends AppCompatActivity {
         protected JSONObject doInBackground(Object... params) {
 
             String str= APIClient.API_POLL;
+            String method=  "POST";
             BufferedReader bufferedReader = null;
+
             try
             {
+                if (pollID > 0) {
+                    str = str + "/" + params[0];
+                    method=  "PUT";
+                }
+
+                Log.e("App", "API URL: " + str );
+                Log.e("App", "API Method: " + method );
+
                 URL url = new URL(str);
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
+                conn.setRequestMethod(method);
                 conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
                 conn.setRequestProperty("Accept","application/json");
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
 
                 JSONObject jsonParam = new JSONObject();
-                jsonParam.put("user_id", params[0]);
-                jsonParam.put("category_id", params[1]);
-                jsonParam.put("enable", params[2]);
-                jsonParam.put("question", params[3]);
+                jsonParam.put("user_id", params[1]);
+                jsonParam.put("category_id", params[2]);
+                jsonParam.put("enable", params[3]);
+                jsonParam.put("question", params[4]);
 
                 Log.i("JSON", jsonParam.toString());
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
@@ -233,6 +267,19 @@ public class CreatePollActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(CreatePollActivity.this, CreatePollOptionsActivity.class);
                         intent.putExtra("pollID", pollJson.getInt("id"));
+
+                        if (pollID > 0) {
+                            JSONObject answersJson = new JSONObject(pollJson.getString("answers"));
+
+                            intent.putExtra("pollAnswerID", answersJson.getInt("id"));
+                            intent.putExtra("isViewOrUpdate", true);
+
+                            intent.putExtra("option_text1", answersJson.getString("option_text1"));
+                            intent.putExtra("option_text2", answersJson.getString("option_text2"));
+                            intent.putExtra("option_text3", answersJson.getString("option_text3"));
+                            intent.putExtra("option_text4", answersJson.getString("option_text4"));
+                        }
+
                         startActivity(intent);
                     }
                     else {

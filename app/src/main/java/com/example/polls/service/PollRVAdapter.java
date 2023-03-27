@@ -10,27 +10,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.polls.R;
 import com.example.polls.model.Poll;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder>{
 
-    private final Context context;
     private ArrayList<Poll> pollArrayList;
     private Timer timer;
     private ArrayList<Poll> pollsSource;
+    private PollRVListener pollRVListener;
 
     // Constructor
-    public PollRVAdapter(Context context, ArrayList<Poll> pollArrayList) {
-        this.context = context;
+    public PollRVAdapter(ArrayList<Poll> pollArrayList, PollRVListener pollRVListener) {
         this.pollArrayList = pollArrayList;
+        this.pollRVListener = pollRVListener;
         pollsSource = pollArrayList;
     }
 
@@ -47,11 +47,11 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
         holder.userNameTV.setText(model.getUsername());
         holder.questionTV.setText("" + model.getQuestion());
         holder.timeAgoTV.setText("" + model.getTimeAgo());
+        holder.layoutPoll.setOnClickListener(v -> pollRVListener.onPollClicked(model,position));
     }
 
     @Override
     public int getItemCount() {
-        // this method is used for showing number of card items in recycler view
         return pollArrayList.size();
     }
 
@@ -60,12 +60,14 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
         private final TextView userNameTV;
         private final TextView questionTV;
         private final TextView timeAgoTV;
+        CardView layoutPoll;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             userNameTV = itemView.findViewById(R.id.idTVUserName);
             questionTV = itemView.findViewById(R.id.idTVPollQuestion);
             timeAgoTV = itemView.findViewById(R.id.idTVTimeAgo);
+            layoutPoll = itemView.findViewById(R.id.layoutPoll);
         }
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutPoll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -47,7 +48,7 @@
             android:drawablePadding="2dp"
             android:text="What is the biggest country?"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <!-- Buttons -->
         <LinearLayout
@@ -78,12 +79,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/idTVPollQuestion"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:layout_toEndOf="@id/idTVButtonLayout"
             android:text="4 days ago"
             android:textColor="@color/gray"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

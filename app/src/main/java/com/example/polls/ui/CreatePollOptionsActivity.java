@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -30,18 +31,32 @@ public class CreatePollOptionsActivity extends AppCompatActivity {
     String option1, option2, option3, option4;
     private ProgressBar progressBar;
 
+    private Boolean isViewOrUpdate;
+    private int pollID, pollAnswerID = 0;
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_poll_options);
 
-        Intent intent = getIntent();
-        int pollID = intent.getIntExtra("pollID", 0);
-
         etOption1 = findViewById(R.id.tietOption1);
         etOption2 = findViewById(R.id.tietOption2);
         etOption3 = findViewById(R.id.tietOption3);
         etOption4 = findViewById(R.id.tietOption4);
+
+        intent = getIntent();
+        pollID = intent.getIntExtra("pollID", 0);
+        pollAnswerID = intent.getIntExtra("pollAnswerID", 0);
+
+        isViewOrUpdate = intent.getBooleanExtra("isViewOrUpdate", false);
+
+        if (isViewOrUpdate) {
+            setViewUpdatePollAnswer();
+        }
+
+        ImageView imageBack = findViewById(R.id.imageBack);
+        imageBack.setOnClickListener(v -> onBackPressed());
 
         Button btnNext = findViewById(R.id.btnFinish);
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -54,9 +69,28 @@ public class CreatePollOptionsActivity extends AppCompatActivity {
 
                 if (!validaInputs(option1,option2)) return;
 
-                new CreatePollAnswer().execute(pollID,option1,option2,option3,option4);
+                new CreatePollAnswer().execute(pollAnswerID, pollID,option1,option2,option3,option4);
             }
         });
+    }
+
+    private void setViewUpdatePollAnswer() {
+        etOption1.setText(intent.getStringExtra("option_text1"));
+        etOption2.setText(intent.getStringExtra("option_text2"));
+
+        option3 = intent.getStringExtra("option_text3");
+        option4 = intent.getStringExtra("option_text4");
+
+        Log.e("App", "Option 3: " + option3 );
+        Log.e("App", "Option 4: " + option4 );
+
+        if (option3.equals("null") == false) {
+            etOption3.setText(option3);
+        }
+
+        if (option4.equals("null") == false) {
+            etOption4.setText(option4);
+        }
     }
 
     private boolean validaInputs(String option1, String option2) {
@@ -87,24 +121,31 @@ public class CreatePollOptionsActivity extends AppCompatActivity {
 
             String str= APIClient.API_POLL_ANSWER;
             BufferedReader bufferedReader = null;
+            String method=  "POST";
+
             try
             {
+                if (pollAnswerID > 0) {
+                    str = str + "/" + params[0];
+                    method=  "PUT";
+                }
+
                 URL url = new URL(str);
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
+                conn.setRequestMethod(method);
                 conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
                 conn.setRequestProperty("Accept","application/json");
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
 
                 JSONObject jsonParam = new JSONObject();
-                jsonParam.put("poll_id", params[0]);
-                jsonParam.put("option_text1", params[1]);
-                jsonParam.put("option_text2", params[2]);
+                jsonParam.put("poll_id", params[1]);
+                jsonParam.put("option_text1", params[2]);
+                jsonParam.put("option_text2", params[3]);
 
-                String option3 = (String) params[3];
-                String option4 = (String) params[4];
+                String option3 = (String) params[4];
+                String option4 = (String) params[5];
 
                 if (option3.trim().length() > 0) {
                     jsonParam.put("option_text3", option3);

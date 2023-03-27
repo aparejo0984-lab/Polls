@@ -22,6 +22,7 @@ import com.example.polls.R;
 import com.example.polls.handler.APIClient;
 import com.example.polls.model.Poll;
 import com.example.polls.service.PollRVAdapter;
+import com.example.polls.service.PollRVListener;
 import com.example.polls.service.SharedPrefManager;
 import com.example.polls.utils.Utils;
 
@@ -35,11 +36,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PollRVListener {
 
     private RecyclerView pollsRecyclerView;
     private PollRVAdapter pollRVAdapter;
     ArrayList<Poll> pollArrayList = new ArrayList<Poll>();
+    private int pollClickedPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         pollsRecyclerView = findViewById(R.id.pollsRecyclerView);
+        pollRVAdapter = new PollRVAdapter(pollArrayList, this);
         new ShowPollList().execute();
 
         EditText inputSearch = findViewById(R.id.inputSearch);
@@ -71,14 +74,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.i("Search string", s.toString());
-                Log.i("Poll Array Size", String.valueOf(pollArrayList.size()));
                 if(pollArrayList.size() != 0) {
                     pollRVAdapter.searchPoll(s.toString());
                 }
             }
         });
-
     }
 
     @Override
@@ -104,6 +104,19 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onPollClicked(Poll poll, int position) {
+        pollClickedPosition = position;
+        Intent intent = new Intent(getApplicationContext(), CreatePollActivity.class);
+        Log.i("Onclicked POLL ID: ", poll.getQuestion());
+        intent.putExtra("isViewOrUpdate", true);
+        intent.putExtra("pollID", poll.getId());
+        intent.putExtra("categoryID", poll.getCategoryId());
+        intent.putExtra("question", poll.getQuestion());
+        intent.putExtra("isEnable", poll.getEnableId());
+        startActivity(intent);
     }
 
     private class ShowPollList extends AsyncTask<Object, Void, JSONObject> {
@@ -164,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
                             Integer id = Integer.valueOf(obj.getString("id"));
                             Integer userId = Integer.valueOf(obj.getString("user_id"));
                             Integer categoryId = Integer.valueOf(obj.getString("category_id"));
+                            Integer enable = Integer.valueOf(obj.getString("enable"));
                             String question = obj.getString("question");
                             String createdAt = obj.getString("created_at");
 
@@ -180,11 +194,10 @@ public class MainActivity extends AppCompatActivity {
                             Log.e("App", "Time Ago: " + timeAgo );
 
                             pollArrayList.add(
-                                    new Poll(id, userId, categoryId, question, userJson.getString("name"), timeAgo)
+                                    new Poll(id, userId, categoryId, enable, question, userJson.getString("name"), timeAgo)
                             );
 
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                            pollRVAdapter = new PollRVAdapter(getApplicationContext(), pollArrayList);
 
                             pollsRecyclerView.setLayoutManager(linearLayoutManager);
                             pollsRecyclerView.setAdapter(pollRVAdapter);
