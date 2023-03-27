@@ -59,6 +59,7 @@
             android:orientation="horizontal"
             android:layout_below="@id/idTVPollQuestion">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/idBtnShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -66,6 +67,7 @@
                 style="?attr/borderlessButtonStyle"
                 />
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/idBtnVote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vote"

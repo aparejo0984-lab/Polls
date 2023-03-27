@@ -62,7 +62,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 new UserPasswordReset().execute(email);
             }
         });
-
     }
 
     private boolean validateInputs(String email){

@@ -119,6 +119,12 @@ public class MainActivity extends AppCompatActivity implements PollRVListener {
         startActivity(intent);
     }
 
+    @Override
+    public void onShareClicked(Poll poll, int position) {
+        Intent intent = new Intent(getApplicationContext(), SharePollActivity.class);
+        startActivity(intent);
+    }
+
     private class ShowPollList extends AsyncTask<Object, Void, JSONObject> {
 
         @Override

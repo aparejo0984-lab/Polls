@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,7 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
         holder.questionTV.setText("" + model.getQuestion());
         holder.timeAgoTV.setText("" + model.getTimeAgo());
         holder.layoutPoll.setOnClickListener(v -> pollRVListener.onPollClicked(model,position));
+        holder.btnShare.setOnClickListener(v -> pollRVListener.onShareClicked(model,position));
     }
 
     @Override
@@ -60,6 +62,8 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
         private final TextView userNameTV;
         private final TextView questionTV;
         private final TextView timeAgoTV;
+        private final Button btnShare, btnVote;
+
         CardView layoutPoll;
 
         public ViewHolder(@NonNull View itemView) {
@@ -68,6 +72,8 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
             questionTV = itemView.findViewById(R.id.idTVPollQuestion);
             timeAgoTV = itemView.findViewById(R.id.idTVTimeAgo);
             layoutPoll = itemView.findViewById(R.id.layoutPoll);
+            btnShare = itemView.findViewById(R.id.idBtnShare);
+            btnVote = itemView.findViewById(R.id.idBtnVote);
         }
     }
 

@@ -43,6 +43,13 @@
 
     </style>
 
+    <style name="btnShareStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/colorSearchIcon</item>
+        <item name="cornerRadius">@dimen/btn_radius</item>
+        <item name="android:layout_height">@dimen/btn_height</item>
+
+    </style>
+
     <style name="titleTextStyle">
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@color/lavender</item>
