@@ -24,9 +24,11 @@
     <string name="share_facebook">Facebook</string>
     <string name="share_instagram">Instagram</string>
     <string name="share_whatsapp">Whatsapp</string>
+    <string name="share_twitter">Twitter</string>
     <string name="share_facebook_message">Poll has been shared to facebook</string>
     <string name="share_instagram_message">Poll has been shared to instagram</string>
     <string name="share_whatsapp_message">Poll has been shared to whatsapp</string>
+    <string name="share_twitter_message">Poll has been shared to twitter</string>
     <string name="create_poll_options">Poll Options</string>
     <string name="choose_avatar">Choose your avatar</string>
     <string name="choose_topic">Choose your topic</string>

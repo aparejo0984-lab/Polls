@@ -14,7 +14,7 @@ import com.example.polls.R;
 
 public class SharePollActivity extends AppCompatActivity {
 
-    private Button shareFacebook, shareInstagram, shareWhatsapp;
+    private Button shareFacebook, shareInstagram, shareWhatsapp, shareTwitter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class SharePollActivity extends AppCompatActivity {
         shareFacebook = findViewById(R.id.btnFacebook);
         shareInstagram = findViewById(R.id.btnInstagram);
         shareWhatsapp = findViewById(R.id.btnWhatsapp);
+        shareTwitter = findViewById(R.id.btnTwitter);
 
         shareFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +49,14 @@ public class SharePollActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), getString(R.string.share_whatsapp_message), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SharePollActivity.this, MainActivity.class));
+            }
+        });
+
+        shareTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), getString(R.string.share_twitter_message), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SharePollActivity.this, MainActivity.class));
             }
         });

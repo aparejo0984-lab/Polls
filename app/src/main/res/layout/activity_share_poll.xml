@@ -67,4 +67,15 @@
         app:layout_constraintStart_toStartOf="@+id/btnInstagram"
         app:layout_constraintTop_toBottomOf="@+id/btnInstagram" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnTwitter"
+        style="@style/btnStyle"
+        android:layout_width="0dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/share_twitter"
+        app:layout_constraintEnd_toEndOf="@+id/btnWhatsapp"
+        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintStart_toStartOf="@+id/btnWhatsapp"
+        app:layout_constraintTop_toBottomOf="@+id/btnWhatsapp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
