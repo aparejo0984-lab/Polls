@@ -125,6 +125,17 @@ public class MainActivity extends AppCompatActivity implements PollRVListener {
         startActivity(intent);
     }
 
+    @Override
+    public void onVoteClicked(Poll poll, int position) {
+        Intent voteIntent = new Intent(getApplicationContext(), RatePollActivity.class);
+        Log.e("App", "Poll Question: " + poll.getQuestion() );
+        voteIntent.putExtra("pollID", poll.getId());
+        voteIntent.putExtra("categoryID", poll.getCategoryId());
+        voteIntent.putExtra("question", poll.getQuestion());
+        voteIntent.putExtra("isEnable", poll.getEnableId());
+        startActivity(voteIntent);
+    }
+
     private class ShowPollList extends AsyncTask<Object, Void, JSONObject> {
 
         @Override

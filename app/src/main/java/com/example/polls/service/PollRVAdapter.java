@@ -50,6 +50,7 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
         holder.timeAgoTV.setText("" + model.getTimeAgo());
         holder.layoutPoll.setOnClickListener(v -> pollRVListener.onPollClicked(model,position));
         holder.btnShare.setOnClickListener(v -> pollRVListener.onShareClicked(model,position));
+        holder.btnVote.setOnClickListener(v -> pollRVListener.onVoteClicked(model,position));
     }
 
     @Override
