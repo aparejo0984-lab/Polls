@@ -11,4 +11,5 @@ public class APIClient {
     public static final String API_ALL_USER = API_BASE + "user";
     public static final String API_POLL = API_BASE + "poll";
     public static final String API_POLL_ANSWER = API_BASE + "pollAnswer";
+    public static final String API_POLL_VOTE = API_BASE + "pollVote";
 }

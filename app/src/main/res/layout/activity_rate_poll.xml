@@ -20,9 +20,9 @@
         app:tint="@color/lavender" />
 
     <ImageView
+        android:id="@+id/imageRate"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_35sdp"
-        android:id="@+id/status"
         android:src="@drawable/ic_done"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_20sdp"

@@ -16,11 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.polls.R;
 import com.example.polls.handler.APIClient;
 import com.example.polls.model.Poll;
+import com.example.polls.model.User;
 import com.example.polls.service.PollRVAdapter;
 import com.example.polls.service.PollRVListener;
 import com.example.polls.service.SharedPrefManager;
@@ -47,6 +49,12 @@ public class MainActivity extends AppCompatActivity implements PollRVListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //getting the current user
+        User user = SharedPrefManager.getInstance(this).getUser();
+
+        TextView welcomeLabel = findViewById(R.id.textMyPolls);
+        welcomeLabel.setText("Welcome " + user.getName());
 
         ImageView imageAddPollMain= findViewById(R.id.imageAddPollMain);
         imageAddPollMain.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +131,18 @@ public class MainActivity extends AppCompatActivity implements PollRVListener {
     public void onShareClicked(Poll poll, int position) {
         Intent intent = new Intent(getApplicationContext(), SharePollActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onViewClicked(Poll poll, int position) {
+        Intent viewIntent = new Intent(getApplicationContext(), RatePollActivity.class);
+        Log.e("App", "Poll Question: " + poll.getQuestion() );
+        viewIntent.putExtra("isView", true);
+        viewIntent.putExtra("pollID", poll.getId());
+        viewIntent.putExtra("categoryID", poll.getCategoryId());
+        viewIntent.putExtra("question", poll.getQuestion());
+        viewIntent.putExtra("isEnable", poll.getEnableId());
+        startActivity(viewIntent);
     }
 
     @Override

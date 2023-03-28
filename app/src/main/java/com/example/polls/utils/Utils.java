@@ -39,8 +39,10 @@ public class Utils {
 
             if (TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime()) > 0 && TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime()) < 60) {
                 timeAgo =  TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime()) + " mins ago";
-            }  else if (TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime()) < 24) {
+            }  else if (TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime()) > 0 && TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime()) < 24) {
                 timeAgo =  Math.abs(TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime())) + " hrs ago";
+            }  else if(TimeUnit.MILLISECONDS.toMillis(now.getTime() - past.getTime()) > 0 && TimeUnit.MILLISECONDS.toMillis(now.getTime() - past.getTime()) < 60000) {
+                timeAgo =  Math.abs(TimeUnit.MILLISECONDS.toMillis(now.getTime() - past.getTime())) + " seconds ago";
             } else {
                 timeAgo = TimeUnit.MILLISECONDS.toDays(now.getTime() - past.getTime()) + " days ago";
             }

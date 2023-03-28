@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.polls.R;
 import com.example.polls.model.Poll;
+import com.example.polls.model.User;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -27,6 +28,7 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
     private Timer timer;
     private ArrayList<Poll> pollsSource;
     private PollRVListener pollRVListener;
+    private Context context;
 
     // Constructor
     public PollRVAdapter(ArrayList<Poll> pollArrayList, PollRVListener pollRVListener) {
@@ -44,13 +46,20 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        User user = SharedPrefManager.getInstance(context).getUser();
+
         Poll model = pollArrayList.get(position);
         holder.userNameTV.setText(model.getUsername());
         holder.questionTV.setText("" + model.getQuestion());
-        holder.timeAgoTV.setText("" + model.getTimeAgo());
-        holder.layoutPoll.setOnClickListener(v -> pollRVListener.onPollClicked(model,position));
         holder.btnShare.setOnClickListener(v -> pollRVListener.onShareClicked(model,position));
-        holder.btnVote.setOnClickListener(v -> pollRVListener.onVoteClicked(model,position));
+        holder.btnView.setOnClickListener(v -> pollRVListener.onViewClicked(model,position));
+
+        if (user.getId() != model.getUserId()) {
+            holder.btnVote.setOnClickListener(v -> pollRVListener.onVoteClicked(model,position));
+        } else {
+            holder.layoutPoll.setOnClickListener(v -> pollRVListener.onPollClicked(model,position));
+            holder.btnVote.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -63,7 +72,7 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
         private final TextView userNameTV;
         private final TextView questionTV;
         private final TextView timeAgoTV;
-        private final Button btnShare, btnVote;
+        private final Button btnShare, btnVote, btnView;
 
         CardView layoutPoll;
 
@@ -75,6 +84,7 @@ public class PollRVAdapter extends RecyclerView.Adapter<PollRVAdapter.ViewHolder
             layoutPoll = itemView.findViewById(R.id.layoutPoll);
             btnShare = itemView.findViewById(R.id.idBtnShare);
             btnVote = itemView.findViewById(R.id.idBtnVote);
+            btnView  = itemView.findViewById(R.id.idBtnView);
         }
     }
 

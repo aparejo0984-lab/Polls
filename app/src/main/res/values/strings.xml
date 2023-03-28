@@ -46,6 +46,7 @@
     <string name="finish">Finish</string>
     <string name="vote">Vote</string>
     <string name="share">Share</string>
+    <string name="view">View</string>
     <string name="rate_poll">Rate Poll</string>
 
     <string name="select_a_category">Select at lease one category</string>

@@ -59,6 +59,14 @@
             android:orientation="horizontal"
             android:layout_below="@id/idTVPollQuestion">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/idBtnView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view"
+                style="?attr/borderlessButtonStyle"
+                />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/idBtnShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,6 +84,7 @@
         </LinearLayout>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/idTVTimeAgo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,7 +94,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:layout_toEndOf="@id/idTVButtonLayout"
-            android:text="4 days ago"
+            android:text="days ago"
             android:textColor="@color/gray"
             android:textSize="10sp" />
     </RelativeLayout>
