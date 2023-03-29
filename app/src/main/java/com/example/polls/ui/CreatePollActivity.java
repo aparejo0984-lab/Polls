@@ -74,12 +74,18 @@ public class CreatePollActivity extends AppCompatActivity {
         imageBack.setOnClickListener(v -> onBackPressed());
 
         ImageView imageDelete = findViewById(R.id.imageDelete);
-        imageDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDeleteNoteDialog();
-            }
-        });
+
+        if (isViewOrUpdate) {
+            imageDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showDeleteNoteDialog();
+                }
+            });
+
+        } else {
+            imageDelete.setVisibility(View.GONE);
+        }
 
         switchEnable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -162,6 +168,7 @@ public class CreatePollActivity extends AppCompatActivity {
             if(dialogDeletePoll.getWindow() != null) {
                 dialogDeletePoll.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             }
+
             view.findViewById(R.id.textDeleteCancel).setOnClickListener(v -> dialogDeletePoll.dismiss());
         }
         dialogDeletePoll.show();

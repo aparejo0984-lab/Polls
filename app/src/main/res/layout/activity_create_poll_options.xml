@@ -31,20 +31,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/lavender" />
 
-            <ImageView
-                android:id="@+id/imageDelete"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:background="@drawable/background_delete_button"
-                android:contentDescription="@string/app_name"
-                android:padding="@dimen/_4sdp"
-                android:src="@drawable/ic_delete"
-                app:layout_constraintBottom_toBottomOf="@id/imageBack"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/imageBack"
-                app:tint="@color/colorDelete" />
-
             <TextView
                 android:id="@+id/tvCreatePoll"
                 android:layout_width="wrap_content"
